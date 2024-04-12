@@ -1,8 +1,9 @@
 let bala, malos, fondoJuego, nave, velocidad = -100, contador = 0, delay = 400, aparecer;
-let windowWith = window.innerWidth * 0.99, WindowHeight = window.innerHeight * 0.97;
+let windowWith = window.innerWidth * 0.99, WindowHeight = window.innerHeight * 0.97 > 1000 ? 1000 : window.innerHeight * 0.97;
 let puntos, vidas, txtpuntos, txtvidas;
 let target = 0;
 let ROTATION_SPEED = 1 * Math.PI; // radians per second
+console.log();
 class Iniciar extends Phaser.Scene {
   constructor(...args) {
     super({ key: 'Iniciar', ...args })
@@ -14,7 +15,7 @@ class Iniciar extends Phaser.Scene {
     this.load.image('bg', './assets/bg.jpg');
   }
   create() {
-    fondoJuego = this.add.tileSprite(windowWith/2, WindowHeight/2, windowWith, WindowHeight, "bg");
+    fondoJuego = this.add.tileSprite(windowWith / 2, WindowHeight / 2, windowWith, WindowHeight, "bg");
     nave = this.add.sprite(40, WindowHeight / 2, 'nave');
     bala = this.physics.add.sprite(40, WindowHeight / 2, 'laser');
     bala.visible = false;
