@@ -15,12 +15,6 @@ class Iniciar extends Phaser.Scene {
   }
   create() {
     fondoJuego = this.add.tileSprite(windowWith/2, WindowHeight/2, windowWith, WindowHeight, "bg");
-    console.log(fondoJuego);
-      // .setOrigin(0)
-      // .setScrollFactor(0, 1);
-    // fondoJuego = this.physics.add.sprite(windowWith / 2, WindowHeight / 2, 'bg');
-    // fondoJuego.body.setAllowGravity(false);
-    // fondoJuego.body.velocity.x = -150;
     nave = this.add.sprite(40, WindowHeight / 2, 'nave');
     bala = this.physics.add.sprite(40, WindowHeight / 2, 'laser');
     bala.visible = false;
@@ -49,16 +43,16 @@ class Iniciar extends Phaser.Scene {
 
     //sistema de puntos
     puntos = 0;
-    this.add.text(20, 20, "Score: ", { font: "14px Arial", fill: "#FFF" });
-    txtpuntos = this.add.text(70, 20, "0", { font: "14px Arial", fill: "#FFF" });
+    this.add.text(20, 20, "Score: ", { font: "3rem Arial", fill: "#FFF" });
+    txtpuntos = this.add.text(170, 20, "0", { font: "3rem Arial", fill: "#FFF" });
 
     //sistema de vidas
     vidas = 5;
-    this.add.text(310, 20, "Lifes: ", { font: "14px Arial", fill: "#FFF" });
-    txtvidas = this.add.text(350, 20, "5", { font: "14px Arial", fill: "#FFF" });
+    this.add.text(310, 20, "Lifes: ", { font: "3rem Arial", fill: "#FFF" });
+    txtvidas = this.add.text(440, 20, "5", { font: "3rem Arial", fill: "#FFF" });
   }
   update() {
-    fondoJuego.tilePositionX -= 1;
+    fondoJuego.tilePositionX += 1;
     nave.rotation = target;
     nave.rotation = Phaser.Math.Angle.RotateTo(
       nave.rotation,
