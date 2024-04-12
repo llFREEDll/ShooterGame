@@ -1,4 +1,4 @@
-let bala, malos, fondoJuego, nave,velocidad=-100, contador = 0, delay = 400, aparecer;
+let bala, malos, fondoJuego, nave, velocidad = -100, contador = 0, delay = 400, aparecer;
 let windowWith = window.innerWidth * 0.99, WindowHeight = window.innerHeight * 0.97;
 let puntos, vidas, txtpuntos, txtvidas;
 let target = 0;
@@ -14,7 +14,13 @@ class Iniciar extends Phaser.Scene {
     this.load.image('bg', './assets/bg.jpg');
   }
   create() {
-    fondoJuego = this.add.image(windowWith / 2, WindowHeight / 2, 'bg');
+    fondoJuego = this.add.tileSprite(windowWith/2, WindowHeight/2, windowWith, WindowHeight, "bg");
+    console.log(fondoJuego);
+      // .setOrigin(0)
+      // .setScrollFactor(0, 1);
+    // fondoJuego = this.physics.add.sprite(windowWith / 2, WindowHeight / 2, 'bg');
+    // fondoJuego.body.setAllowGravity(false);
+    // fondoJuego.body.velocity.x = -150;
     nave = this.add.sprite(40, WindowHeight / 2, 'nave');
     bala = this.physics.add.sprite(40, WindowHeight / 2, 'laser');
     bala.visible = false;
@@ -52,6 +58,7 @@ class Iniciar extends Phaser.Scene {
     txtvidas = this.add.text(350, 20, "5", { font: "14px Arial", fill: "#FFF" });
   }
   update() {
+    fondoJuego.tilePositionX -= 1;
     nave.rotation = target;
     nave.rotation = Phaser.Math.Angle.RotateTo(
       nave.rotation,
@@ -64,7 +71,7 @@ class Iniciar extends Phaser.Scene {
 
     // //colision que quita vidas
     malos.children.iterate(function (child) {
-      if ( child.visible && child.x == 25) {
+      if (child.visible && child.x == 25) {
         vidas--;
         txtvidas.text = vidas;
         child.visible = false;
@@ -88,11 +95,11 @@ class Iniciar extends Phaser.Scene {
       target,
       ROTATION_SPEED * 0.001
     );
-    bala.enableBody(true,40,WindowHeight/2,true,true);
+    bala.enableBody(true, 40, WindowHeight / 2, true, true);
     bala.rotation = target;
     //Agregar el disparar hace que se mas fluido
     // y que no se repita como en el update
-    
+
     bala.x = 40
     bala.y = WindowHeight / 2
     this.physics.moveTo(bala, pointer.x, pointer.y, 300);
@@ -100,18 +107,17 @@ class Iniciar extends Phaser.Scene {
   crearEnemigos() {
     let enem = malos.getChildren()[contador];
     let num = Math.floor(Math.random() * (WindowHeight - 40) + 1);
-    enem.enableBody(true, windowWith - 40,num, true, true);
+    enem.enableBody(true, windowWith - 40, num, true, true);
     enem.body.velocity.x = velocidad;
-    
+
     contador++;
     if (contador >= malos.getLength()) {
       contador = 0;
-      velocidad -= 50 
-      
+      velocidad -= 50
+
     }
   }
   colision(bala, malo) {
-    console.log("colision");
     if (malo.visible) {
       puntos++;
       txtpuntos.text = puntos;
@@ -131,7 +137,7 @@ class Terminado extends Phaser.Scene {
   constructor(...args) {
     super({ key: 'Terminado', ...args })
   }
-  preload () {
+  preload() {
 
   }
   create() {
